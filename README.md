@@ -1,6 +1,6 @@
 # DAG do Programa Gás do Povo
 
-DAG metodológico e notebooks de coleta de dados para uma futura avaliação de impacto do **Gás do Povo** (Lei nº 14.973/2024), programa federal de subsídio ao gás de cozinha para famílias de baixa renda inscritas no Cadastro Único.
+DAG metodológico e notebooks de coleta de dados para uma futura avaliação de impacto do **Gás do Povo** (Lei nº 15.348/2026), programa federal de subsídio ao gás de cozinha para famílias de baixa renda inscritas no Cadastro Único.
 
 ![DAG proposto para avaliação do Gás do Povo](dag_gas_do_povo.png)
 
