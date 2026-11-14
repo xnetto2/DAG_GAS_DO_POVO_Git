@@ -1,8 +1,8 @@
 # DAG do Programa Gás do Povo
 
-DAG metodológico (v3) e notebooks de coleta de dados para uma futura avaliação de impacto do **Gás do Povo** (Lei nº 15.348/2026), programa federal de subsídio ao gás de cozinha para famílias de baixa renda inscritas no Cadastro Único.
+DAG metodológico (v4) e notebooks de coleta de dados para uma futura avaliação de impacto do **Gás do Povo** (Lei nº 15.348/2026), programa federal de subsídio ao gás de cozinha para famílias de baixa renda inscritas no Cadastro Único.
 
-![DAG v3 — Gás do Povo](dag_gas_do_povo.png)
+![DAG v4 — Gás do Povo](dag_gas_do_povo.png)
 
 ## Fontes de dados
 
@@ -14,19 +14,22 @@ DAG metodológico (v3) e notebooks de coleta de dados para uma futura avaliaçã
 
 > **Dados acessados em:** 2026-11-14. As bases são atualizadas mensalmente; verificar data de acesso ao reproduzir análises.
 
-## Estrutura do DAG v3
+## Estrutura do DAG v4
 
 ```
 X (caract. pre-trat.) ──► E (elegibilidade) ──► T (voucher) ──► Y (desfecho social)
         │                                            │                  ▲
-        └────────────────────────────────────────────│──────────────────┘ (back-door X→Y)
-                                                     └──► M (mediadores) ──► Y
+        │          back-door X→Y ───────────────────│──────────────────┘
+        │                                            └──► M (mediadores) ──► Y
+        │                                                                     │
+        └──────────────────────► C (colisor) ◄───────────────────────────────┘
+                                  (X→C←Y: NÃO controlar por C)
 
-U1 (mercado GLP) ─ ─► T e Y    (confundidor latente — borda tracejada)
-U2 (fricções acesso) ─ ─► T e Y (confundidor latente — borda tracejada)
+U1 (mercado GLP) ─ ─► T e Y     (confundidor latente — borda tracejada)
+U2 (fricções acesso) ─ ─► T e Y  (confundidor latente — borda tracejada)
 ```
 
-### Nós (v3)
+### Nós (v4)
 
 | Símbolo | Nó | Papel |
 |---------|-----|-------|
@@ -34,6 +37,7 @@ U2 (fricções acesso) ─ ─► T e Y (confundidor latente — borda tracejada
 | **E** | Elegibilidade formal | Renda ≤ ½ SM inscrita no CadÚnico (RDD fuzzy no corte) |
 | **T** | Gás do Povo (voucher) | Tratamento: recebimento e uso efetivo do voucher |
 | **Y** | Desfecho social | Resultado causal: SAN, saúde respiratória, combustível limpo |
+| **C** | Recadastramento no CadÚnico | **COLISOR** (X→C←Y): características pré-tratamento e desfechos atuais ambos determinam o recadastramento. NÃO controlar por C. |
 | **M** | Mecanismos (mediadores) | Acesso a gás, redução de biomassa, renda domiciliar liberada |
 | **U₁** | Mercado local de GLP | Confundidor latente: preço regional, densidade de revendedores |
 | **U₂** | Fricções de acesso | Confundidor latente: alfabetização digital, smartphone, distância ao revendedor |
@@ -67,7 +71,7 @@ DAG_GAS_DO_POVO_Git/
 ├── 02_download_consolidado_municipio.ipynb  # Download consolidado por município (dados.gov.br)
 ├── 03_dag_gas_do_povo.ipynb                 # DAG via %run gerar_dag_gas_do_povo.py
 ├── gerar_dag_gas_do_povo.py                 # Fonte única de verdade do DAG (importado pelo notebook)
-├── dag_gas_do_povo.png                      # DAG v3 gerado
+├── dag_gas_do_povo.png                      # DAG v4 gerado
 ├── requirements.txt
 └── .gitignore
 ```
